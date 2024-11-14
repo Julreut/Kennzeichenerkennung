@@ -1,0 +1,39 @@
+/* Stil für das Upload-Formular */
+.upload-form {
+    max-width: 400px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+}
+
+/* Stil für den "Choose File"-Button */
+input[type="file"] {
+    color: #495057;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+    background-color: #d827d6;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background-color: #218838;
+}
+
+/* Stil für den Upload-Button */
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
