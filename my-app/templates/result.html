@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uploaded File Preview</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Center the preview container */
+      .preview-container {
+        max-width: 400px;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .preview-media {
+        max-width: 100%;
+        border-radius: 5px;
+      }
+
+      /* Center content vertically and horizontally */
+      .center-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="center-content">
+      <div class="preview-container text-center">
+        <h2 class="mb-4">Uploaded File Preview</h2>
+        <div class="mb-4">
+          {% if filename.endswith(('png', 'jpg', 'jpeg', 'gif')) %}
+          <img
+            src="{{ file_url }}"
+            class="preview-media img-fluid"
+            alt="Uploaded Image"
+          />
+          {% elif filename.endswith(('mp4', 'avi', 'mov')) %}
+          <video class="preview-media" controls>
+            <source src="{{ file_url }}" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          {% else %}
+          <p>Unsupported file type.</p>
+          {% endif %}
+        </div>
+        <a href="/" class="btn btn-secondary w-100">Upload Another File</a>
+      </div>
+    </div>
+  </body>
+</html>
