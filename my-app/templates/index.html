@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload or Choose Example</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <style>
+      .upload-form {
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .error-message {
+        color: #dc3545;
+        font-size: 0.9rem;
+        margin-top: 10px;
+      }
+
+      .example-preview {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-bottom: 15px;
+      }
+
+      .example-img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="upload-form">
+        <h2 class="text-center mb-4">Upload File or Choose Example</h2>
+        <form
+          id="uploadForm"
+          action="/upload"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <!-- File Input -->
+          <div class="mb-3">
+            <input
+              type="file"
+              class="form-control"
+              id="fileInput"
+              name="file"
+              accept="image/*,video/*"
+            />
+          </div>
+
+          <!-- Choose Model Dropdown -->
+          <div class="mb-3">
+            <label for="modelSelect" class="form-label">Choose Model:</label>
+            <select class="form-select" id="modelSelect" name="model">
+              <option value="" selected disabled>Select a model</option>
+              <option value="model1">Model 1 (YOLO Placeholder)</option>
+              <option value="model2">Model 2 (ANPR Placeholder)</option>
+            </select>
+          </div>
+
+          <!-- Example Image Previews -->
+          <div class="example-preview">
+            <img
+              src="{{ url_for('static', filename='examples/example1.png') }}"
+              class="example-img"
+              data-filename="example1.png"
+              onclick="selectExample(this)"
+              alt="Example 1"
+            />
+            <img
+              src="{{ url_for('static', filename='examples/example2.png') }}"
+              class="example-img"
+              data-filename="example2.png"
+              onclick="selectExample(this)"
+              alt="Example 2"
+            />
+            <img
+              src="{{ url_for('static', filename='examples/example3.png') }}"
+              class="example-img"
+              data-filename="example3.mp4"
+              onclick="selectExample(this)"
+              alt="Example 3"
+            />
+          </div>
+
+          <!-- Example Files Selection -->
+          <input type="hidden" id="exampleSelect" name="example" />
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-success w-100">
+            Run Inference
+          </button>
+          <p id="errorMessage" class="error-message d-none">
+            Please upload a file or choose an example, and select a model to
+            proceed.
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Function to select an example image
+      function selectExample(element) {
+        const exampleSelect = document.getElementById("exampleSelect");
+        const exampleImages = document.querySelectorAll(".example-img");
+
+        // Set the hidden input value to the selected example's filename
+        exampleSelect.value = element.getAttribute("data-filename");
+
+        // Highlight the selected image
+        exampleImages.forEach((img) => img.classList.remove("selected"));
+        element.classList.add("selected");
+      }
+
+      // Form validation
+      document
+        .getElementById("uploadForm")
+        .addEventListener("submit", function (event) {
+          const fileInput = document.getElementById("fileInput");
+          const modelSelect = document.getElementById("modelSelect");
+          const exampleSelect = document.getElementById("exampleSelect");
+          const errorMessage = document.getElementById("errorMessage");
+
+          // Check if a file is uploaded or an example is selected, and a model is chosen
+          if (
+            (!fileInput.value && !exampleSelect.value) ||
+            !modelSelect.value
+          ) {
+            event.preventDefault();
+            errorMessage.classList.remove("d-none");
+          } else {
+            errorMessage.classList.add("d-none");
+          }
+        });
+    </script>
+  </body>
+</html>
