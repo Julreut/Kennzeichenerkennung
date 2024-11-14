@@ -1,2 +1,13 @@
- .DS_Store
+
+.venv/
+
+# automatic mac files
 .DS_Store
+env/.DS_Store
+env/lib/.DS_Store
+env/lib/python3.11/.DS_Store
+env/lib/python3.11/site-packages/.DS_Store
+env/lib/python3.11/site-packages/django/.DS_Store
+src/.DS_Store
+src/api/.DS_Store
+src/posts/.DS_Store
