@@ -41,3 +41,8 @@ Make sure you have the following installed:
    ```bash
     flask run
    ```
+
+5. **Run without env variables**
+   ```bash
+   python3 app.py
+   ```
