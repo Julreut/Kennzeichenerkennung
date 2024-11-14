@@ -1,0 +1,5 @@
+flask
+werkzeug
+easyocr
+opencv-python-headless
+numpy
