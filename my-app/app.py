@@ -42,14 +42,24 @@ def upload_file():
     # Mock inference result
     if model_choice == 'model1':
         output_text = "Mock Inference Result: Detected objects (YOLO Placeholder)"
+        country = "Unbekannt"
     elif model_choice == 'model2':
         output_text = "Mock Inference Result: Detected license plate (ANPR Placeholder)"
+        # Beispiel: Angenommen, die Inferenz ergibt ein Herkunftsland
+        country = "Deutschland"  # Hardcoded oder durch Erkennung ersetzt
     else:
         flash('Invalid model choice.', 'danger')
         return redirect(url_for('index'))
 
+    # Flash message for the model choice
     flash(f'Model chosen: {model_choice}. Inference completed.', 'success')
-    return render_template('result.html', file_url=file_url, filename=filename, output_text=output_text)
+    return render_template(
+        'result.html',
+        file_url=file_url,
+        filename=filename,
+        output_text=output_text,
+        country=country
+    )
 
 if __name__ == '__main__':
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
